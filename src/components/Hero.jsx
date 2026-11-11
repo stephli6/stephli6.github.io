@@ -1,0 +1,119 @@
+import React from 'react';
+import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import SecurityIcon from '@mui/icons-material/Security';
+import { useLang } from '../utils/i18n';
+
+const UI = {
+  en: {
+    h1_a: 'Turning ',
+    h1_b: 'data into decisions',
+    h1_c: '.',
+    sub: 'Data & BI analyst in training at UCLA (MEng, Data Science, June 2027). I turn messy public data into answers a business can use — SQL, Python, Tableau, and Power BI.',
+    bullets: [
+      { icon: <RocketLaunchIcon />, label: 'SQL · Python · Tableau' },
+      { icon: <AutoAwesomeIcon />, label: '3 end-to-end projects' },
+      { icon: <SecurityIcon />, label: 'LA · Orange County · Remote (CA)' },
+    ],
+    ctaPrimary: 'View Resume',
+    ctaSecondary: 'See Projects',
+    subject: 'Portfolio Inquiry',
+    seenIn: 'Education',
+  },
+  es: {
+    h1_a: 'Turning ',
+    h1_b: 'data into decisions',
+    h1_c: '.',
+    sub: 'Data & BI analyst in training at UCLA (MEng, Data Science, June 2027). I turn messy public data into answers a business can use — SQL, Python, Tableau, and Power BI.',
+    bullets: [
+      { icon: <RocketLaunchIcon />, label: 'SQL · Python · Tableau' },
+      { icon: <AutoAwesomeIcon />, label: '3 end-to-end projects' },
+      { icon: <SecurityIcon />, label: 'LA · Orange County · Remote (CA)' },
+    ],
+    ctaPrimary: 'View Resume',
+    ctaSecondary: 'See Projects',
+    subject: 'Portfolio Inquiry',
+    seenIn: 'Education',
+  },
+};
+
+export default function Hero() {
+  const [lang] = useLang();
+  const t = UI[lang] || UI.en;
+  const mailHref = '/resume.pdf';
+
+  return (
+    <Box
+      sx={(theme) => ({
+        position: 'relative',
+        color: '#fff',
+        py: { xs: 8, md: 12 },
+        // Layered gradients for a premium look
+        background: `radial-gradient(1200px 600px at 20% -10%, ${theme.palette.secondary.main}33, transparent 60%),
+                     linear-gradient(180deg, ${theme.palette.primary.main} 0%, #0b1220 60%, #08101a 100%)`,
+        overflow: 'hidden',
+      })}
+    >
+      {/* subtle glow ornament */}
+      <Box sx={{
+        position: 'absolute',
+        width: 280,
+        height: 280,
+        right: -80,
+        top: -80,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(6,182,212,0.35) 0%, rgba(6,182,212,0) 60%)',
+        filter: 'blur(6px)',
+        pointerEvents: 'none',
+      }} />
+
+      <Container maxWidth="lg">
+        <Stack spacing={4} alignItems="center" textAlign="center">
+          {/* Headline with gradient-highlight */}
+          <Typography variant="h1" sx={{ fontWeight: 900, letterSpacing: -1, lineHeight: 1.1, fontSize: { xs: 36, md: 56 } }}>
+            {t.h1_a}
+            <Box component="span" sx={{
+              background: (th) => `linear-gradient(90deg, ${th.palette.secondary.main}, #7dd3fc)`,
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent',
+              textShadow: '0 0 24px rgba(125,211,252,.25)'
+            }}>
+              {t.h1_b}
+            </Box>
+            {t.h1_c}
+          </Typography>
+
+          {/* Subheadline */}
+          <Typography sx={{ maxWidth: 900, fontSize: { xs: 16, md: 18 }, color: 'rgba(255,255,255,.86)' }}>
+            {t.sub}
+          </Typography>
+
+          {/* Proof points */}
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} alignItems="center" justifyContent="center">
+            {t.bullets.map((b, i) => (
+              <Chip key={i} icon={b.icon} label={b.label} color="default" sx={{
+                bgcolor: 'rgba(255,255,255,0.12)',
+                color: '#fff',
+                border: '1px solid rgba(255,255,255,0.25)',
+                fontWeight: 700,
+              }} />
+            ))}
+          </Stack>
+
+          {/* CTAs */}
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+            <Button href={mailHref} variant="contained" color="secondary" size="large" aria-label={t.ctaPrimary} target="_blank" rel="noopener noreferrer">
+              {t.ctaPrimary}
+            </Button>
+            <Button component="a" href="/projects" variant="outlined" size="large" sx={{ color: '#fff', borderColor: 'rgba(255,255,255,.5)' }}>
+              {t.ctaSecondary}
+            </Button>
+          </Stack>
+        </Stack>
+      </Container>
+    </Box>
+  );
+}
+
